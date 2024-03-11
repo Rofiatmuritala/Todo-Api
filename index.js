@@ -1,24 +1,16 @@
 import express from "express";
-
+import bodyParser from "body-parser";
+import todosRoutes from "./routes/todos.routes.js"
 
 // create express app
 const app = express();
 
-//Define route
-app.get('/', (req, res) => {
-    // console.log(req.query, req.headers);
-    res.send("Over and in")
-});
+// Apply middlewares
+app.use(bodyParser.json())
 
-app.get('/ping', (req, res) => {
-    // console.log(req.query, req.headers);
-    res.send("Ping Pong")
-});
+//Use route
 
-app.get('/file', (req, res) => {
-    console.log(process.cwd());
-    res.sendFile(process.cwd() + '/index.html');
-})
+app.use(todosRoutes)
 
 // Listen for incoming request
 app.listen(4000, () => {
